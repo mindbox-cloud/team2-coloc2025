@@ -12,3 +12,16 @@ export interface IGameParams {
   intervalMs: number;
   armies: IArmyParams[]; // 2, 3, 4
 }
+
+export interface ISoldier {
+  army: IArmyParams; // 1, 2, 3, 4
+  currentHp: number;
+}
+
+export interface IGame {
+  state: (ISoldier | null)[][];
+  makeTurn(): void;
+}
+
+export function createGame(params: IGameParams): IGame {
+}
