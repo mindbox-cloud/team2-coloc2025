@@ -7,30 +7,34 @@ export function findNearestEnemy(
   visionLength: number,
   ownArmy: IArmyParams
 ): [number, number] | null {
-  let minDist = Infinity;
-  let target: [number, number] | null = null;
+  let closestEnemy: [number, number] | null = null;
+  let shortestDistance = Infinity;
 
-  for (let dy = -visionLength; dy <= visionLength; dy++) {
-    for (let dx = -visionLength; dx <= visionLength; dx++) {
-      const nx = x + dx;
-      const ny = y + dy;
-      if (
-        (dx !== 0 || dy !== 0) &&
-        ny >= 0 &&
-        ny < state.length &&
-        nx >= 0 &&
-        nx < state[ny].length &&
-        state[ny][nx] &&
-        state[ny][nx]!.army !== ownArmy
-      ) {
-        const dist = Math.abs(dx) + Math.abs(dy);
-        if (dist < minDist) {
-          minDist = dist;
-          target = [nx, ny];
+  for (let offsetY = -visionLength; offsetY <= visionLength; offsetY++) {
+    for (let offsetX = -visionLength; offsetX <= visionLength; offsetX++) {
+      const targetX = x + offsetX;
+      const targetY = y + offsetY;
+
+      const isCurrentCell = offsetX === 0 && offsetY === 0;
+
+      const isInsideBounds =
+        targetY >= 0 &&
+        targetY < state.length &&
+        targetX >= 0 &&
+        targetX < state[targetY].length;
+
+      const cell = isInsideBounds ? state[targetY][targetX] : null;
+      const isEnemy = cell && cell.army !== ownArmy;
+
+      if (!isCurrentCell && isEnemy) {
+        const distance = Math.abs(offsetX) + Math.abs(offsetY);
+        if (distance < shortestDistance) {
+          shortestDistance = distance;
+          closestEnemy = [targetX, targetY];
         }
       }
     }
   }
 
-  return target;
+  return closestEnemy;
 }

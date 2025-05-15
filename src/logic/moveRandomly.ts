@@ -1,37 +1,46 @@
 import { DIRECTIONS } from "../constants/availableDirections";
 import { ISoldier } from "../game";
 
-function shuffle<T>(array: T[]): T[] {
-  const copy = [...array];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+function shuffleArray<T>(inputArray: T[]): T[] {
+  const arrayCopy = [...inputArray];
+  for (
+    let currentIndex = arrayCopy.length - 1;
+    currentIndex > 0;
+    currentIndex--
+  ) {
+    const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+    [arrayCopy[currentIndex], arrayCopy[randomIndex]] = [
+      arrayCopy[randomIndex],
+      arrayCopy[currentIndex],
+    ];
   }
-  return copy;
+  return arrayCopy;
 }
 
 export function tryMoveRandomly(
-  state: (ISoldier | null)[][],
-  newState: (ISoldier | null)[][],
-  x: number,
-  y: number,
+  currentState: (ISoldier | null)[][],
+  nextState: (ISoldier | null)[][],
+  currentX: number,
+  currentY: number,
   soldier: ISoldier
 ): void {
-  const shuffledDirections = shuffle(DIRECTIONS);
+  const directionsToTry = shuffleArray(DIRECTIONS);
 
-  for (const [dx, dy] of shuffledDirections) {
-    const nx = x + dx;
-    const ny = y + dy;
+  for (const [offsetX, offsetY] of directionsToTry) {
+    const newX = currentX + offsetX;
+    const newY = currentY + offsetY;
 
-    if (
-      ny >= 0 &&
-      ny < state.length &&
-      nx >= 0 &&
-      nx < state[ny].length &&
-      !newState[ny][nx]
-    ) {
-      newState[ny][nx] = soldier;
-      newState[y][x] = null;
+    const isInsideField =
+      newY >= 0 &&
+      newY < currentState.length &&
+      newX >= 0 &&
+      newX < currentState[newY].length;
+
+    const isCellFree = isInsideField && !nextState[newY][newX];
+
+    if (isCellFree) {
+      nextState[newY][newX] = soldier;
+      nextState[currentY][currentX] = null;
       break;
     }
   }
