@@ -1,0 +1,1 @@
+.field-root{display:grid;gap:0;grid-template-columns:repeat(var(--n),1fr);grid-template-rows:repeat(var(--n),1fr);height:calc(var(--n) * 60px + 1px);width:calc(var(--n) * 60px + 1px);border-bottom:1px solid black;border-right:1px solid black;margin:0 auto}.field-cell{width:60px;height:60px;box-sizing:border-box;border-top:1px solid black;border-left:1px solid black}
