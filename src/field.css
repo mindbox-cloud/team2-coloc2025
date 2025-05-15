@@ -1,10 +1,10 @@
 .field-root {
+  --cell-size: calc(90vmin / var(--n));
+  width: 50%;
   display: grid;
   gap: 0;
-  grid-template-columns: repeat(var(--n), 1fr);
-  grid-template-rows: repeat(var(--n), 1fr);
-  height: calc(var(--n) * 60px + 1px);
-  width: calc(var(--n) * 60px + 1px);
+  grid-template-columns: repeat(var(--n), var(--cell-size));
+  grid-template-rows: repeat(var(--n), var(--cell-size));
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   margin: 3em auto;
@@ -13,8 +13,8 @@
 
 .field-cell {
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   box-sizing: border-box;
   border-top: 1px solid black;
   border-left: 1px solid black;
@@ -37,7 +37,7 @@
 .game-soldier-icon {
   width: 60%;
   height: 60%;
-  transform: translate(8%, 5%)
+  transform: translate(8%, 5%);
 }
 
 .game-soldier-icon svg {
@@ -46,11 +46,13 @@
   height: 100%;
 }
 
-.game-paused .game-btn-pause, .game-finished .game-btn-pause {
+.game-paused .game-btn-pause,
+.game-finished .game-btn-pause {
   display: none;
 }
 
-.game-playing .game-btn-play, .game-finished .game-btn-play {
+.game-playing .game-btn-play,
+.game-finished .game-btn-play {
   display: none;
 }
 
