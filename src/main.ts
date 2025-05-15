@@ -1,17 +1,20 @@
-import renderForm from './renderParamsForm.ts';
-import renderField from './renderField.ts';
-import getRandomColors from './getRandomColors.ts';
+import renderForm from "./renderParamsForm.ts";
+import updateField from "./updateField.ts";
 
-const root = document.getElementById('app')!;
-const fieldElementId = 'field';
+const root = document.getElementById("app")!;
+const fieldElementId = "field";
 
-const form = renderForm(
-  (n) => {
-    const field = renderField(n, getRandomColors(n));
-    field.id = fieldElementId;
-    document.getElementById(fieldElementId)?.remove();
-    root.append(field);
+let intervalId: number | null = null;
+
+const form = renderForm((n, intervalMs) => {
+  if (intervalId !== null) {
+    clearInterval(intervalId);
   }
-);
+  updateField(n, root, fieldElementId);
+
+  intervalId = setInterval(() => {
+    updateField(n, root, fieldElementId);
+  }, intervalMs);
+});
 
 root.append(form);
