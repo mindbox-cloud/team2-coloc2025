@@ -3,10 +3,13 @@ import renderField from './renderField.ts';
 import getRandomColors from './getRandomColors.ts';
 
 const root = document.getElementById('app')!;
+const fieldElementId = 'field';
 
 const form = renderForm(
   (n) => {
-    renderField(n, getRandomColors(n));
+    const field = renderField(n, getRandomColors(n));
+    document.getElementById(fieldElementId)?.remove();
+    root.append(field);
   }
 );
 
