@@ -4,8 +4,8 @@
   width: calc(var(--cell-size) * var(--n));
   grid-template-columns: repeat(var(--n), var(--cell-size));
   grid-template-rows: repeat(var(--n), var(--cell-size));
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
   margin: 3em auto;
   position: relative;
 }
@@ -35,8 +35,8 @@
   width: var(--cell-size);
   height: var(--cell-size);
   box-sizing: border-box;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
