@@ -1,22 +1,45 @@
-import { createGame } from "./game.ts";
+import { createGame, IGameParams } from "./game.ts";
 import renderGameField from "./renderGameField.ts";
 import renderParamsForm from "./renderParamsForm.ts";
+import renderGameControls from "./renderGameControls.ts";
 
 const root = document.getElementById("app")!;
 
 let intervalId: number | undefined;
 
-const form = renderParamsForm((gameSettings) => {
+function startNewGame(gameParams: IGameParams) {
+  root.innerHTML = '';
   clearInterval(intervalId);
 
-  const game = createGame(gameSettings);
+  const game = createGame(gameParams);
+
+  function play() {
+    root.classList.add('game-playing');
+    root.classList.remove('game-paused');
+    intervalId = setInterval(() => {
+      const prevState = game.state;
+      game.makeTurn();
+      renderGameField(root, game.state, prevState);
+    }, gameParams.intervalMs);
+  }
+
+  function pause() {
+    root.classList.add('game-paused');
+    root.classList.remove('game-playing');
+    clearInterval(intervalId);
+  }
+
   renderGameField(root, game.state);
+  renderGameControls(root, { pause, play, reset });
 
-  intervalId = setInterval(() => {
-    const prevState = game.state;
-    game.makeTurn();
-    renderGameField(root, game.state, prevState);
-  }, gameSettings.intervalMs);
-});
+  play();
+}
 
-root.append(form);
+function reset() {
+  clearInterval(intervalId);
+  root.innerHTML = '';
+  const form = renderParamsForm(startNewGame);
+  root.append(form);
+}
+
+reset();
