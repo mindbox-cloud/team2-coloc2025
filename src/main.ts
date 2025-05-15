@@ -10,11 +10,12 @@ const form = renderParamsForm((gameSettings) => {
   clearInterval(intervalId);
 
   const game = createGame(gameSettings);
-  renderGameField(game.state, root);
+  renderGameField(root, game.state);
 
   intervalId = setInterval(() => {
+    const prevState = game.state;
     game.makeTurn();
-    renderGameField(game.state, root);
+    renderGameField(root, game.state, prevState);
   }, gameSettings.intervalMs);
 });
 

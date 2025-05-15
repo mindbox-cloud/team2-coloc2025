@@ -32,7 +32,7 @@ function getOrCreateFieldElement(size: number, root: HTMLElement) {
   return newField;
 }
 
-export default function (state: IGame['state'], root: HTMLElement) {
+export default function (root: HTMLElement, state: IGame['state'], prevState: IGame['state'] | null = null) {
   const field = getOrCreateFieldElement(state.length, root);
 
   for (let i = 0; i < state.length; i++) {
