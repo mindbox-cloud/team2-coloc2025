@@ -1,5 +1,7 @@
+import { IGameParams } from "./game";
+
 export default function (
-  onSubmit: (n: number, intervalMs: number) => void
+  onSubmit: (params: IGameParams) => void
 ): HTMLFormElement {
   const form = document.createElement("form");
   form.classList.add("p-3");
