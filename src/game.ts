@@ -24,6 +24,7 @@ export interface ISoldier {
 export interface IGame {
   state: (ISoldier | null)[][];
   makeTurn(): void;
+  hasOnlyOneArmyLeft(): boolean;
 }
 
 export function createGame(params: IGameParams): IGame {
@@ -52,6 +53,21 @@ export function createGame(params: IGameParams): IGame {
       }
 
       this.state = newState;
+    },
+
+    hasOnlyOneArmyLeft() {
+      const uniqueArmies = new Set<IArmyParams>();
+
+      for (let y = 0; y < this.state.length; y++) {
+        for (let x = 0; x < this.state[y].length; x++) {
+          const soldier = this.state[y][x];
+          if (soldier) {
+            uniqueArmies.add(soldier.army);
+          }
+        }
+      }
+
+      return Array.from(uniqueArmies).length === 1;
     },
   };
 }
