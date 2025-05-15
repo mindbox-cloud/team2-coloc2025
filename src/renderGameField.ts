@@ -1,4 +1,4 @@
-import { IGame } from './game';
+import { IGame, ISoldier } from './game';
 
 const FIELD_ELEMENT_ID = 'game-field';
 
@@ -32,6 +32,13 @@ function getOrCreateFieldElement(size: number, root: HTMLElement) {
   return newField;
 }
 
+function createSoldierIcon() {
+  const icon = document.createElement('div');
+  icon.classList.add('game-soldier-icon')
+  icon.innerHTML = '<svg><use href="#icon-soldier" /></svg>';
+  return icon;
+}
+
 export default function (root: HTMLElement, state: IGame['state'], prevState: IGame['state'] | null = null) {
   const field = getOrCreateFieldElement(state.length, root);
 
@@ -39,13 +46,12 @@ export default function (root: HTMLElement, state: IGame['state'], prevState: IG
     for (let j = 0; j < state[i].length; j++) {
       const cellEl = field.children[i * state.length + j] as HTMLDivElement;
       const cellSoldier = state[i][j];
+      cellEl.removeAttribute('style');
+      cellEl.innerHTML = '';
       if (cellSoldier) {
-        cellEl.style.backgroundColor = cellSoldier.army.color;
+        cellEl.style.setProperty('--color', cellSoldier.army.color);
         cellEl.style.setProperty('--hp-percent', `${cellSoldier.currentHp / cellSoldier.army.hp * 100}%`);
-        cellEl.textContent = `HP ${cellSoldier.currentHp}`;
-      } else {
-        cellEl.removeAttribute('style');
-        cellEl.textContent = '';
+        cellEl.append(createSoldierIcon());
       }
     }
   }
