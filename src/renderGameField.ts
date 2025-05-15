@@ -37,9 +37,14 @@ export default function (state: IGame['state'], root: HTMLElement) {
 
   for (let i = 0; i < state.length; i++) {
     for (let j = 0; j < state[i].length; j++) {
-      const cell = field.children[i * state.length + j] as HTMLDivElement;
+      const cellEl = field.children[i * state.length + j] as HTMLDivElement;
       const cellSoldier = state[i][j];
-      cell.style.backgroundColor = cellSoldier ? cellSoldier.army.color : 'white';
+      if (cellSoldier) {
+        cellEl.style.backgroundColor = cellSoldier.army.color;
+        cellEl.textContent = `HP ${cellSoldier.currentHp}`;
+      } else {
+        cellEl.textContent = '';
+      }
     }
   }
 }
