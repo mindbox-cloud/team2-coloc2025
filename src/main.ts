@@ -6,14 +6,14 @@ const fieldElementId = "field";
 
 let intervalId: number | null = null;
 
-const form = renderForm((n, intervalMs) => {
+const form = renderForm(({ fieldSize, intervalMs }) => {
   if (intervalId !== null) {
     clearInterval(intervalId);
   }
-  updateField(n, root, fieldElementId);
+  updateField(fieldSize, root, fieldElementId);
 
   intervalId = setInterval(() => {
-    updateField(n, root, fieldElementId);
+    updateField(fieldSize, root, fieldElementId);
   }, intervalMs);
 });
 
