@@ -26,15 +26,7 @@
 }
 
 @keyframes damaged-cell {
-  0% {
-    background-color: transparent;
-  }
-
-  33.333% {
-    background-color: rgba(255, 0, 0, 0.2);
-  }
-
-  66.66% {
+  50% {
     background-color: rgba(255, 0, 0, 0.5);
   }
 }
@@ -65,13 +57,21 @@
 .game-soldier-icon {
   width: 60%;
   height: 60%;
-  transform: translate(8%, 5%);
 }
 
 .game-soldier-icon svg {
   display: block;
   width: 100%;
   height: 100%;
+  transform: translate(8%, 5%);
+}
+
+.field-cell-damaged {
+  animation: damaged-cell 0.4s ease-in-out infinite;
+}
+
+.field-cell-damaged .game-soldier-icon {
+  animation: damaged-icon 0.2s ease-in-out infinite;
 }
 
 .game-paused .game-btn-pause,

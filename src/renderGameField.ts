@@ -46,7 +46,6 @@ export default function (root: HTMLElement, state: IGame['state'], prevState: IG
     for (let j = 0; j < state[i].length; j++) {
       const cellEl = field.children[i * state.length + j] as HTMLDivElement;
       const cellSoldier = state[i][j];
-      const cellPrevSoldier = prevState?.[i][j] || null;
       cellEl.removeAttribute('style');
       cellEl.innerHTML = '';
       cellEl.classList.remove('field-cell-damaged');
@@ -55,8 +54,7 @@ export default function (root: HTMLElement, state: IGame['state'], prevState: IG
         cellEl.style.setProperty('--hp-percent', `${cellSoldier.currentHp / cellSoldier.army.hp * 100}%`);
         cellEl.append(createSoldierIcon());
       }
-      if (cellSoldier && cellSoldier === cellPrevSoldier) {
-        console.log('cell', cellSoldier, cellPrevSoldier);
+      if (cellSoldier?.attacked) {
         cellEl.classList.add('field-cell-damaged');
       }
     }
