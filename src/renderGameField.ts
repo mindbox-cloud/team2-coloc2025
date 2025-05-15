@@ -41,8 +41,10 @@ export default function (state: IGame['state'], root: HTMLElement) {
       const cellSoldier = state[i][j];
       if (cellSoldier) {
         cellEl.style.backgroundColor = cellSoldier.army.color;
+        cellEl.style.setProperty('--hp-percent', `${cellSoldier.currentHp / cellSoldier.army.hp * 100}%`);
         cellEl.textContent = `HP ${cellSoldier.currentHp}`;
       } else {
+        cellEl.removeAttribute('style');
         cellEl.textContent = '';
       }
     }
