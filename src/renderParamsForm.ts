@@ -38,7 +38,7 @@ export default function (
   inputIntervalMs.classList.add("form-control");
   inputIntervalMs.required = true;
   inputIntervalMs.min = "1";
-  inputIntervalMs.value = "1000";
+  inputIntervalMs.value = "500";
 
   divInterval.append(labelIntervalMs, inputIntervalMs);
 

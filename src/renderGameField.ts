@@ -48,10 +48,14 @@ export default function (root: HTMLElement, state: IGame['state'], prevState: IG
       const cellSoldier = state[i][j];
       cellEl.removeAttribute('style');
       cellEl.innerHTML = '';
+      cellEl.classList.remove('field-cell-damaged');
       if (cellSoldier) {
         cellEl.style.setProperty('--color', cellSoldier.army.color);
         cellEl.style.setProperty('--hp-percent', `${cellSoldier.currentHp / cellSoldier.army.hp * 100}%`);
         cellEl.append(createSoldierIcon());
+      }
+      if (cellSoldier?.attacked) {
+        cellEl.classList.add('field-cell-damaged');
       }
     }
   }
