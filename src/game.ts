@@ -52,7 +52,7 @@ export function createGame(params: IGameParams): IGame {
         for (let x = 0; x < this.state[y].length; x++) {
           const soldier = this.state[y][x];
           if (!soldier) continue;
-
+          delete soldier.attacked;
           processSoldierTurn(x, y, soldier, this.state, newState, knownEnemies);
         }
       }
