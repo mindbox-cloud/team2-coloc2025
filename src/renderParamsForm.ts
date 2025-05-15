@@ -129,10 +129,15 @@ export default function (
         colorInput.type = "color";
         colorInput.value = armyParams.color as string;
 
+        const label = document.createElement("label");
+        label.textContent = "Цвет армии:";
+        label.classList.add("form-label");
+
         colorInput.addEventListener("change", () => {
           armyParams.color = colorInput.value;
         });
 
+        armyContainer.appendChild(label);
         armyContainer.appendChild(colorInput);
 
         armies.push(armyParams as IArmyParams);
@@ -156,11 +161,17 @@ export default function (
     console.log(armies);
 
     e.preventDefault();
-    onSubmit({
-      fieldSize: Number(inputN.value),
-      intervalMs: Number(inputIntervalMs.value),
-      armies: armies,
-    });
+
+    if (armies.length > 1) {
+      onSubmit({
+        fieldSize: Number(inputN.value),
+        intervalMs: Number(inputIntervalMs.value),
+        armies: armies,
+      });
+    }
+    else {
+      alert('Армий должно быть больше одной')
+    }
   });
 
   return form;
