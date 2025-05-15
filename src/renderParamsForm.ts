@@ -1,8 +1,3 @@
-import {
-  createMinValueValidator,
-  createRangeValidator,
-} from "./helpers/parsePositiveValue";
-
 export default function (
   onSubmit: (n: number, intervalMs: number) => void
 ): HTMLFormElement {
@@ -20,6 +15,8 @@ export default function (
   inputN.type = "number";
   inputN.classList.add("form-control");
   inputN.required = true;
+  inputN.min = "1";
+  inputN.max = "100";
 
   divN.append(labelN, inputN);
 
@@ -33,7 +30,8 @@ export default function (
   const inputIntervalMs = document.createElement("input");
   inputIntervalMs.type = "number";
   inputIntervalMs.classList.add("form-control");
-  inputN.required = true;
+  inputIntervalMs.required = true;
+  inputIntervalMs.min = "1";
 
   divInterval.append(labelIntervalMs, inputIntervalMs);
 
@@ -46,9 +44,6 @@ export default function (
   };
 
   form.append(divN, divInterval, createFormButton());
-
-  inputIntervalMs.addEventListener("input", createMinValueValidator(1));
-  inputN.addEventListener("input", createRangeValidator(1, 100));
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
