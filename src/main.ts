@@ -1,8 +1,8 @@
-import { createGame } from './game.ts';
-import renderParamsForm from './renderParamsForm.ts';
-import renderGameField from './renderGameField.ts';
+import { createGame } from "./game.ts";
+import renderGameField from "./renderGameField.ts";
+import renderParamsForm from "./renderParamsForm.ts";
 
-const root = document.getElementById('app')!;
+const root = document.getElementById("app")!;
 
 let intervalId: number | undefined;
 

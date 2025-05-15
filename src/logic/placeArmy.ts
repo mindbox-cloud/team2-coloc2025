@@ -15,10 +15,11 @@ export function placeArmy(
 
   const zone = initialArmyPosition[index];
   let count = 0;
-  for (let i = 0; i < fieldSize && count < army.size; i++) {
-    for (let j = 0; j < fieldSize && count < army.size; j++) {
-      const x = zone.xStart + (index % 2 === 0 ? i : -i); // армии с чётным индексом 0,2 заполняют вправо, нечётные 1,3 - влево
-      const y = zone.yStart + (index < 2 ? j : -j); // верхние армии 0, 1 заполняют вниз, нижние 2, 3 - вверх
+  const squareSize = Math.ceil(Math.sqrt(army.size));
+  for (let dy = 0; dy < squareSize && count < army.size; dy++) {
+    for (let dx = 0; dx < squareSize && count < army.size; dx++) {
+      const x = zone.xStart + (index % 2 === 0 ? dx : -dx);
+      const y = zone.yStart + (index < 2 ? dy : -dy);
       if (x >= 0 && x < fieldSize && y >= 0 && y < fieldSize && !state[y][x]) {
         state[y][x] = {
           army,
