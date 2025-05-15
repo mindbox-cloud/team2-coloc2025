@@ -35,7 +35,7 @@ export default function (
   form.classList.add("p-3");
 
   const divN = document.createElement("div");
-  divN.classList.add("mb-3");
+  divN.classList.add("mb-3", "col-3");
 
   const labelN = document.createElement("label");
   labelN.textContent = "Размер поля (N):";
@@ -52,7 +52,7 @@ export default function (
   divN.append(labelN, inputN);
 
   const divInterval = document.createElement("div");
-  divInterval.classList.add("mb-3");
+  divInterval.classList.add("mb-3", "col-3");
 
   const labelIntervalMs = document.createElement("label");
   labelIntervalMs.textContent = "Интервал (мс):";
@@ -81,15 +81,18 @@ export default function (
     button.textContent = "Добавить армию";
     button.classList.add("btn", "btn-secondary");
 
+    const armiesWrapper = document.createElement("div");
+    armiesWrapper.classList.add("mb-3", "row", "flex-nowrap", "gap-3");
+
     button.addEventListener("click", () => {
       const armyIndex = armies.length;
       if (armyIndex <= 3) {
         const armyContainer = document.createElement("div");
-        armyContainer.classList.add("card", "mb-3", "p-3");
+        armyContainer.classList.add("card", "mb-3", "p-3", "col-2");
 
-        const armyTitle = document.createElement("h5");
+        const armyTitle = document.createElement("h6");
         armyTitle.textContent = `Армия #${armyIndex + 1}`;
-        armyTitle.classList.add("card-title", "mb-3");
+        armyTitle.classList.add("card-title", "mb-2");
 
         armyContainer.appendChild(armyTitle);
 
@@ -99,17 +102,17 @@ export default function (
 
         armyFields.forEach((field) => {
           const fieldContainer = document.createElement("div");
-          fieldContainer.classList.add("mb-3");
+          fieldContainer.classList.add("mb-2");
 
           const label = document.createElement("label");
           label.textContent = field.label;
-          label.classList.add("form-label");
+          label.classList.add("form-label", "col-form-label-sm");
           label.htmlFor = `army-${armyIndex}-${field.id}`;
 
           const input = document.createElement("input");
           input.type = "number";
           input.id = `army-${armyIndex}-${field.id}`;
-          input.classList.add("form-control");
+          input.classList.add("form-control", "form-control-sm");
           input.required = true;
           input.min = field.min.toString();
           input.max = field.max.toString();
@@ -131,7 +134,7 @@ export default function (
 
         const label = document.createElement("label");
         label.textContent = "Цвет армии:";
-        label.classList.add("form-label");
+        label.classList.add("form-label", "col-form-label-sm");
 
         colorInput.addEventListener("change", () => {
           armyParams.color = colorInput.value;
@@ -142,7 +145,8 @@ export default function (
 
         armies.push(armyParams as IArmyParams);
 
-        form.insertBefore(armyContainer, buttonGroup);
+        armiesWrapper.appendChild(armyContainer);
+        form.insertAdjacentElement("beforeend", armiesWrapper);
       } else {
         alert("Максимальное количество армий - 4");
       }
@@ -153,9 +157,13 @@ export default function (
 
   const buttonGroup = document.createElement("div");
   buttonGroup.append(createArmyButton(), createFormButton());
-  buttonGroup.classList.add("btn-group", "gap-2");
+  buttonGroup.classList.add("btn-group");
 
-  form.append(divN, divInterval, buttonGroup);
+  const intervalWrapper = document.createElement("div");
+  intervalWrapper.append(divInterval, divN);
+  intervalWrapper.classList.add("row", "mt-2");
+
+  form.append(buttonGroup, intervalWrapper);
 
   form.addEventListener("submit", (e) => {
     console.log(armies);
@@ -168,9 +176,8 @@ export default function (
         intervalMs: Number(inputIntervalMs.value),
         armies: armies,
       });
-    }
-    else {
-      alert('Армий должно быть больше одной')
+    } else {
+      alert("Армий должно быть больше одной");
     }
   });
 
