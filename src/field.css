@@ -11,6 +11,34 @@
   position: relative;
 }
 
+@keyframes damaged-icon {
+  0% {
+    transform: none;
+  }
+
+  33.333% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+
+  66.66% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+@keyframes damaged-cell {
+  0% {
+    background-color: transparent;
+  }
+
+  33.333% {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+
+  66.66% {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+}
+
 .field-cell {
   position: relative;
   width: 60px;
@@ -37,7 +65,6 @@
 .game-soldier-icon {
   width: 60%;
   height: 60%;
-  transform: translate(8%, 5%)
 }
 
 .game-soldier-icon svg {
@@ -46,11 +73,21 @@
   height: 100%;
 }
 
-.game-paused .game-btn-pause, .game-finished .game-btn-pause {
+.field-cell-damaged {
+  animation: damaged-cell 0.2s ease-in-out 1;
+}
+
+.field-cell-damaged .game-soldier-icon {
+  animation: damaged-icon 0.2s ease-in-out 2;
+}
+
+.game-paused .game-btn-pause,
+.game-finished .game-btn-pause {
   display: none;
 }
 
-.game-playing .game-btn-play, .game-finished .game-btn-play {
+.game-playing .game-btn-play,
+.game-finished .game-btn-play {
   display: none;
 }
 
