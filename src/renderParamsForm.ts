@@ -1,6 +1,8 @@
 export default function (
   onSubmit: (n: number, intervalMs: number) => void
 ): HTMLFormElement {
+  let intervalId: number | null = null;
+
   const form = document.createElement("form");
   form.classList.add("p-3");
 
@@ -39,7 +41,15 @@ export default function (
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    onSubmit(Number(inputN.value), Number(inputIntervalMs.value));
+    const n = Number(inputN.value);
+    const intervalMs = Number(inputIntervalMs.value);
+    onSubmit(n, intervalMs);
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
+      onSubmit(n, intervalMs);
+    }, intervalMs);
   });
 
   return form;
