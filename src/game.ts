@@ -19,6 +19,11 @@ export interface IGameParams {
 export interface ISoldier {
   army: IArmyParams; // 1, 2, 3, 4
   currentHp: number;
+  attacked?: {
+    by: ISoldier;
+    damage: number;
+    isCritical: boolean;
+  };
 }
 
 export interface IGame {
