@@ -1,30 +1,5 @@
 import { IArmyParams, IGameParams } from "./game";
-
-const armyFields = [
-  { id: "size", label: "Размер армии:", min: 1, max: 100, default: 10 },
-  {
-    id: "hp",
-    label: "Здоровье солдата:",
-    min: 1,
-    max: 100,
-    default: 10,
-  },
-  { id: "strength", label: "Сила удара:", min: 1, max: 10, default: 1 },
-  {
-    id: "visionLength",
-    label: "Дальность обзора:",
-    min: 1,
-    max: 10,
-    default: 3,
-  },
-  {
-    id: "criticalPercent",
-    label: "Шанс критического удара:",
-    min: 0,
-    max: 100,
-    default: 10,
-  },
-];
+import { DEFAULT_ARMY_FIELDS, DEFAULT_COLORS } from "./constants/form";
 
 export default function (
   onSubmit: (params: IGameParams) => void
@@ -97,10 +72,10 @@ export default function (
         armyContainer.appendChild(armyTitle);
 
         const armyParams: Partial<IArmyParams> = {
-          color: "#9c4f4f",
+          color: DEFAULT_COLORS[armyIndex],
         };
 
-        armyFields.forEach((field) => {
+        DEFAULT_ARMY_FIELDS.forEach((field) => {
           const fieldContainer = document.createElement("div");
           fieldContainer.classList.add("mb-2");
 
