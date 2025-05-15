@@ -1,5 +1,5 @@
 export const DEFAULT_ARMY_FIELDS = [
-  { id: "size", label: "Размер армии:", min: 1, max: 100, default: 10 },
+  { id: "size", label: "Размер армии:", min: 1, max: 100, default: 20 },
   {
     id: "hp",
     label: "Здоровье солдата:",
@@ -7,7 +7,7 @@ export const DEFAULT_ARMY_FIELDS = [
     max: 100,
     default: 10,
   },
-  { id: "strength", label: "Сила удара:", min: 1, max: 100, default: 1 },
+  { id: "strength", label: "Сила удара:", min: 1, max: 100, default: 3 },
   {
     id: "visionLength",
     label: "Дальность обзора:",

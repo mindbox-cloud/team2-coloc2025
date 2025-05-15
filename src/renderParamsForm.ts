@@ -1,5 +1,5 @@
-import { IArmyParams, IGameParams } from "./game";
 import { DEFAULT_ARMY_FIELDS, DEFAULT_COLORS } from "./constants/form";
+import { IArmyParams, IGameParams } from "./game";
 
 export default function (
   onSubmit: (params: IGameParams) => void
@@ -22,7 +22,7 @@ export default function (
   inputN.required = true;
   inputN.min = "1";
   inputN.max = "100";
-  inputN.value = "10";
+  inputN.value = "15";
 
   divN.append(labelN, inputN);
 
