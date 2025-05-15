@@ -4,9 +4,10 @@ import getRandomColors from './getRandomColors.ts';
 
 const root = document.getElementById('app')!;
 
-renderForm({
-  root,
-  onSubmit(n) {
+const form = renderForm(
+  (n) => {
     renderField(n, getRandomColors(n));
   }
-});
+);
+
+root.append(form);
